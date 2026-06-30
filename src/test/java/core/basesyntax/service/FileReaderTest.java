@@ -1,8 +1,7 @@
 package core.basesyntax.service;
 
-import java.util.List;
-
 import core.basesyntax.service.impl.FileReaderImpl;
+import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

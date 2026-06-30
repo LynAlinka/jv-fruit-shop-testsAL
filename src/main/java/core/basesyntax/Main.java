@@ -10,8 +10,12 @@ import core.basesyntax.service.impl.DataConverterImpl;
 import core.basesyntax.service.impl.FileReaderImpl;
 import core.basesyntax.service.impl.FileWriterImpl;
 import core.basesyntax.service.impl.ReportGeneratorImpl;
-import core.basesyntax.strategy.*;
-
+import core.basesyntax.strategy.BalanceOperation;
+import core.basesyntax.strategy.OperationHandler;
+import core.basesyntax.strategy.OperationStrategy;
+import core.basesyntax.strategy.PurchaseOperation;
+import core.basesyntax.strategy.ReturnOperation;
+import core.basesyntax.strategy.SupplyOperation;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

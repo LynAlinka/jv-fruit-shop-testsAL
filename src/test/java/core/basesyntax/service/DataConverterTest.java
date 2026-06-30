@@ -1,10 +1,9 @@
 package core.basesyntax.service;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import core.basesyntax.model.FruitTransaction;
 import core.basesyntax.service.impl.DataConverterImpl;
+import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -30,13 +29,11 @@ class DataConverterTest {
         Assertions.assertEquals(2, actual.size(),
                 "Should parse exactly 2 transactions (ignoring header)");
 
-        // Перевіряємо першу транзакцію
         Assertions.assertEquals(FruitTransaction.Operation.BALANCE,
                 actual.get(0).getOperation());
         Assertions.assertEquals("banana", actual.get(0).getFruit());
         Assertions.assertEquals(20, actual.get(0).getQuantity());
 
-        // Перевіряємо другу транзакцію
         Assertions.assertEquals(FruitTransaction.Operation.SUPPLY,
                 actual.get(1).getOperation());
         Assertions.assertEquals("apple", actual.get(1).getFruit());
