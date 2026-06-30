@@ -1,9 +1,9 @@
 package core.basesyntax.service;
 
+import core.basesyntax.service.impl.FileWriterImpl;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import core.basesyntax.service.impl.FileWriterImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

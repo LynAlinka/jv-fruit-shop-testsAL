@@ -12,7 +12,12 @@ public class OperationStrategy {
     }
 
     public OperationHandler get(FruitTransaction.Operation operation) {
-        return operationHandlerMap.get(operation);
+        OperationHandler handler = operationHandlerMap.get(operation);
+        if (handler == null) {
+            throw new RuntimeException("No handler found for operation: " + operation);
+        }
+        return handler;
     }
 }
+
 
