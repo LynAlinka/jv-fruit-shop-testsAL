@@ -1,5 +1,10 @@
 package core.basesyntax;
 
+import core.basesyntax.db.ShopStorage;
+import core.basesyntax.model.FruitTransaction;
+import core.basesyntax.strategy.OperationHandler;
+import core.basesyntax.strategy.OperationStrategy;
+
 import java.util.List;
 
 public class ShopService {

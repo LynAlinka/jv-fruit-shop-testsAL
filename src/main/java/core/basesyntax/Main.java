@@ -1,10 +1,25 @@
 package core.basesyntax;
 
+import core.basesyntax.db.ShopStorage;
+import core.basesyntax.model.FruitTransaction;
+import core.basesyntax.service.DataConverter;
+import core.basesyntax.service.FileReader;
+import core.basesyntax.service.FileWriter;
+import core.basesyntax.service.ReportGenerator;
+import core.basesyntax.service.impl.DataConverterImpl;
+import core.basesyntax.service.impl.FileReaderImpl;
+import core.basesyntax.service.impl.FileWriterImpl;
+import core.basesyntax.service.impl.ReportGeneratorImpl;
+import core.basesyntax.strategy.*;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Main {
+    private static final String INPUT_FILE_PATH = "src/main/resources/input.csv";
+    private static final String REPORT_FILE_PATH = "src/main/resources/report.csv";
+
     public static void main(String[] args) {
         Map<FruitTransaction.Operation, OperationHandler> handlers = new HashMap<>();
         handlers.put(FruitTransaction.Operation.BALANCE, new BalanceOperation());
@@ -15,7 +30,7 @@ public class Main {
         OperationStrategy strategy = new OperationStrategy(handlers);
 
         FileReader fileReader = new FileReaderImpl();
-        List<String> inputData = fileReader.read("src/main/resources/input.csv");
+        List<String> inputData = fileReader.read(INPUT_FILE_PATH);
 
         DataConverter dataConverter = new DataConverterImpl();
         List<FruitTransaction> transactions = dataConverter.convert(inputData);
@@ -27,8 +42,9 @@ public class Main {
         String report = reportGenerator.getReport(ShopStorage.getInstance());
 
         FileWriter fileWriter = new FileWriterImpl();
-        fileWriter.write(report, "src/main/resources/report.csv");
+        fileWriter.write(report, REPORT_FILE_PATH);
     }
 }
+
 
 

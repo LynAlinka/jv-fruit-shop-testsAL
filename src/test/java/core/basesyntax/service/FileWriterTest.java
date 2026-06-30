@@ -1,8 +1,10 @@
-package core.basesyntax;
+package core.basesyntax.service;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+
+import core.basesyntax.service.impl.FileWriterImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +24,7 @@ class FileWriterTest {
         Assertions.assertEquals(testContent, actualContent,
                 "Content in file should match what was written.");
 
-        // Видаляємо тимчасовий тестовий файл після перевірки
         Files.deleteIfExists(path);
     }
 }
+

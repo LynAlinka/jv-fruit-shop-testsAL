@@ -1,5 +1,7 @@
-package core.basesyntax;
+package core.basesyntax.service;
 
+import core.basesyntax.db.ShopStorage;
+import core.basesyntax.service.impl.ReportGeneratorImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

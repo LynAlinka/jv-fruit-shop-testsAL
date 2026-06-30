@@ -1,7 +1,10 @@
-package core.basesyntax;
+package core.basesyntax.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import core.basesyntax.model.FruitTransaction;
+import core.basesyntax.service.impl.DataConverterImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
