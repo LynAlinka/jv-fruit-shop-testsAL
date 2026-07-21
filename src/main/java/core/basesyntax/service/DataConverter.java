@@ -7,3 +7,4 @@ public interface DataConverter {
     List<FruitTransaction> convert(List<String> value);
 }
 
+

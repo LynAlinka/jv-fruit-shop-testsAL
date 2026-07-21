@@ -1,10 +1,12 @@
 package core.basesyntax.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import core.basesyntax.service.impl.FileWriterImpl;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class FileWriterTest {
@@ -17,13 +19,12 @@ class FileWriterTest {
         fileWriter.write(testContent, TEST_OUTPUT);
 
         Path path = Path.of(TEST_OUTPUT);
-        Assertions.assertTrue(Files.exists(path), "File should be created.");
+        assertTrue(Files.exists(path), "File should be created.");
 
         String actualContent = Files.readString(path);
-        Assertions.assertEquals(testContent, actualContent,
+        assertEquals(testContent, actualContent,
                 "Content in file should match what was written.");
 
         Files.deleteIfExists(path);
     }
 }
-

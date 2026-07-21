@@ -1,6 +1,5 @@
 package core.basesyntax;
 
-import core.basesyntax.db.ShopStorage;
 import core.basesyntax.model.FruitTransaction;
 import core.basesyntax.strategy.OperationHandler;
 import core.basesyntax.strategy.OperationStrategy;
@@ -14,11 +13,10 @@ public class ShopService {
     }
 
     public void process(List<FruitTransaction> transactions) {
-        ShopStorage storage = ShopStorage.getInstance();
         for (FruitTransaction transaction : transactions) {
             OperationHandler handler = strategy.get(transaction.getOperation());
             if (handler != null) {
-                handler.handle(storage, transaction);
+                handler.handle(transaction);
             }
         }
     }

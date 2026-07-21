@@ -1,6 +1,5 @@
 package core.basesyntax;
 
-import core.basesyntax.db.ShopStorage;
 import core.basesyntax.model.FruitTransaction;
 import core.basesyntax.service.DataConverter;
 import core.basesyntax.service.FileReader;
@@ -43,12 +42,13 @@ public class Main {
         shopService.process(transactions);
 
         ReportGenerator reportGenerator = new ReportGeneratorImpl();
-        String report = reportGenerator.getReport(ShopStorage.getInstance());
+        String report = reportGenerator.getReport();
 
         FileWriter fileWriter = new FileWriterImpl();
         fileWriter.write(report, REPORT_FILE_PATH);
     }
 }
+
 
 
 

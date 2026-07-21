@@ -21,7 +21,7 @@ class ShopServiceTest {
 
     @BeforeEach
     void setUp() {
-        ShopStorage.getInstance().setFruitQuantity("apple", 0);
+        ShopStorage.storage.clear();
 
         Map<FruitTransaction.Operation, OperationHandler> handlers = new HashMap<>();
         handlers.put(FruitTransaction.Operation.BALANCE, new BalanceOperation());
@@ -34,20 +34,45 @@ class ShopServiceTest {
     }
 
     @Test
-    void process_validTransactions_ok() {
-        FruitTransaction balanceApple = new FruitTransaction();
-        balanceApple.setOperation(FruitTransaction.Operation.BALANCE);
-        balanceApple.setFruit("apple");
-        balanceApple.setQuantity(100);
+    void process_balanceOperation_ok() {
+        FruitTransaction transaction = new FruitTransaction(
+                FruitTransaction.Operation.BALANCE, "apple", 100);
+        shopService.process(List.of(transaction));
 
-        FruitTransaction purchaseApple = new FruitTransaction();
-        purchaseApple.setOperation(FruitTransaction.Operation.PURCHASE);
-        purchaseApple.setFruit("apple");
-        purchaseApple.setQuantity(20);
+        int actualQuantity = ShopStorage.storage.get("apple");
+        assertEquals(100, actualQuantity, "Balance operation should set quantity to 100");
+    }
 
-        shopService.process(List.of(balanceApple, purchaseApple));
+    @Test
+    void process_supplyOperation_ok() {
+        ShopStorage.storage.put("banana", 20);
+        FruitTransaction transaction = new FruitTransaction(
+                FruitTransaction.Operation.SUPPLY, "banana", 30);
+        shopService.process(List.of(transaction));
 
-        int actualQuantity = ShopStorage.getInstance().getFruitQuantity("apple");
-        assertEquals(80, actualQuantity, "100 balance - 20 purchase should equal 80");
+        int actualQuantity = ShopStorage.storage.get("banana");
+        assertEquals(50, actualQuantity, "Supply operation should add 30 to existing 20");
+    }
+
+    @Test
+    void process_purchaseOperation_ok() {
+        ShopStorage.storage.put("apple", 100);
+        FruitTransaction transaction = new FruitTransaction(
+                FruitTransaction.Operation.PURCHASE, "apple", 20);
+        shopService.process(List.of(transaction));
+
+        int actualQuantity = ShopStorage.storage.get("apple");
+        assertEquals(80, actualQuantity, "Purchase operation should decrease quantity by 20");
+    }
+
+    @Test
+    void process_returnOperation_ok() {
+        ShopStorage.storage.put("apple", 50);
+        FruitTransaction transaction = new FruitTransaction(
+                FruitTransaction.Operation.RETURN, "apple", 10);
+        shopService.process(List.of(transaction));
+
+        int actualQuantity = ShopStorage.storage.get("apple");
+        assertEquals(60, actualQuantity, "Return operation should add returned 10 to 50");
     }
 }

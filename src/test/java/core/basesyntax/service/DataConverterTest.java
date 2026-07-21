@@ -1,10 +1,13 @@
 package core.basesyntax.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import core.basesyntax.model.FruitTransaction;
 import core.basesyntax.service.impl.DataConverterImpl;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -26,31 +29,31 @@ class DataConverterTest {
 
         List<FruitTransaction> actual = dataConverter.convert(inputLines);
 
-        Assertions.assertEquals(2, actual.size(),
+        assertEquals(2, actual.size(),
                 "Should parse exactly 2 transactions (ignoring header)");
 
-        Assertions.assertEquals(FruitTransaction.Operation.BALANCE,
+        assertEquals(FruitTransaction.Operation.BALANCE,
                 actual.get(0).getOperation());
-        Assertions.assertEquals("banana", actual.get(0).getFruit());
-        Assertions.assertEquals(20, actual.get(0).getQuantity());
+        assertEquals("banana", actual.get(0).getFruit());
+        assertEquals(20, actual.get(0).getQuantity());
 
-        Assertions.assertEquals(FruitTransaction.Operation.SUPPLY,
+        assertEquals(FruitTransaction.Operation.SUPPLY,
                 actual.get(1).getOperation());
-        Assertions.assertEquals("apple", actual.get(1).getFruit());
-        Assertions.assertEquals(100, actual.get(1).getQuantity());
+        assertEquals("apple", actual.get(1).getFruit());
+        assertEquals(100, actual.get(1).getQuantity());
     }
 
     @Test
     void convert_emptyList_ok() {
         List<FruitTransaction> actual = dataConverter.convert(new ArrayList<>());
-        Assertions.assertTrue(actual.isEmpty(), "Result should be empty for empty input");
+        assertTrue(actual.isEmpty(), "Result should be empty for empty input");
     }
 
     @Test
     void convert_invalidOperationCode_notOk() {
-        List<String> invalidInput = List.of("x,banana,20"); // 'x' - невідомий код операції
+        List<String> invalidInput = List.of("x,banana,20");
 
-        Assertions.assertThrows(RuntimeException.class, () -> {
+        assertThrows(RuntimeException.class, () -> {
             dataConverter.convert(invalidInput);
         }, "Should throw an exception for unknown operation code");
     }
